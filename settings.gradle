@@ -1,0 +1,3 @@
+rootProject.name = 'resourcefulgradle'
+include('plugin')
+

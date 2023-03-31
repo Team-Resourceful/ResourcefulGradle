@@ -1,0 +1,96 @@
+plugins {
+    // Apply the Java Gradle plugin development plugin to add support for developing Gradle plugins
+    id 'java-gradle-plugin'
+    id 'maven-publish'
+}
+
+repositories {
+    // Use Maven Central for resolving dependencies.
+    mavenCentral()
+}
+
+
+/*testing {
+    suites {
+        // Configure the built-in test suite
+        test {
+            // Use JUnit Jupiter test framework
+            useJUnitJupiter('5.9.1')
+        }
+
+        // Create a new test suite
+        functionalTest(JvmTestSuite) {
+            dependencies {
+                // functionalTest test suite depends on the production code in tests
+                implementation project()
+            }
+
+            targets {
+                all {
+                    // This test suite should run after the built-in test suite has run its tests
+                    testTask.configure { shouldRunAfter(test) }
+                }
+            }
+        }
+    }
+}*/
+
+gradlePlugin {
+    // Define the plugin
+    plugins {
+        resourcefulGradle {
+            id = 'com.teamresourceful.resourcefulgradle'
+            implementationClass = 'com.teamresourceful.ResourcefulGradlePlugin'
+        }
+
+        resourcefulSettings {
+            id = 'com.teamresourceful.resourcefulsettings'
+            implementationClass = 'com.teamresourceful.ResourcefulSettingsPlugin'
+        }
+    }
+}
+
+/*gradlePlugin.testSourceSets(sourceSets.functionalTest)
+
+tasks.named('check') {
+    // Include functionalTest as part of the check lifecycle
+    dependsOn(testing.suites.functionalTest)
+}*/
+
+def ENV = System.getenv()
+
+publishing {
+    publications {
+        pluginMaven(MavenPublication) {
+            pom {
+                name = 'ResourcefulBees'
+                description = 'A mod for minecraft to add own bees to minecraft through a powerful api.'
+                url = 'https://github.com/Team-Resourceful/ResourcefulGradle'
+
+                scm {
+                    connection = 'git:https://github.com/Team-Resourceful/ResourcefulGradle.git'
+                    developerConnection = 'git:https://github.com/Team-Resourceful/ResourcefulGradle.git'
+                    url = 'https://github.com/Team-Resourceful/ResourcefulGradle'
+                }
+
+                licenses {
+                    license {
+                        name = 'MIT'
+                        url = 'https://opensource.org/license/mit/'
+                    }
+                }
+            }
+        }
+    }
+
+    // See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
+    repositories {
+        maven {
+            url = "https://nexus.resourcefulbees.com/repository/maven-releases/"
+            credentials {
+                username ENV.MAVEN_USER
+                password ENV.MAVEN_PASS
+            }
+        }
+    }
+}

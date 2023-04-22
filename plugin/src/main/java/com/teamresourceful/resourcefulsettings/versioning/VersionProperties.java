@@ -45,10 +45,9 @@ public class VersionProperties {
             final List<String> versionProps = Files.readAllLines(versionPropsPath);
             VALUES.clear();
             LOGGER.debug("version props:");
-            //TODO add handling for missing values in version.props
             versionProps.forEach(s -> {
                 String[] kv = s.split("=");
-                VALUES.putIfAbsent(kv[0], kv[1]);
+                VALUES.putIfAbsent(kv[0], kv.length == 1 ? "" : kv[1]);
                 LOGGER.debug(s);
             });
 

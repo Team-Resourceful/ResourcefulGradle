@@ -30,7 +30,6 @@ public final class ResourcefulSettingsPlugin implements Plugin<Settings> {
     public void apply(@NotNull Settings settings) {
 
         ResourcefulSettingsExt extension = settings.getExtensions().create("resourcefulSettings", ResourcefulSettingsExt.class);
-        //extension.getAutomaticVersioning().convention(false);
 
         VersionProperties.map(settings.getRootDir());
         if (!VersionProperties.isEmpty()) {
@@ -40,15 +39,15 @@ public final class ResourcefulSettingsPlugin implements Plugin<Settings> {
         }
 
         settings.getGradle().rootProject(project -> {
-            extension.getPatchVersion().convention("0");
-            extension.getVersionPostfix().convention("");
-            extension.getPostfixBuild().convention("0");
+            extension.getPatch().convention("0");
+            extension.getReleaseType().convention("");
+            extension.getBuild().convention("0");
             TaskContainer taskContainer = project.getTasks();
             taskContainer.register(UPDATE_MOD_VERSION_TASK, UpdateModVersionTask.class, task -> {
                 task.setGroup(VERSIONING_GROUP);
-                task.setPatchVersion(extension.getPatchVersion().get());
-                task.setVersionPostfix(extension.getVersionPostfix().get());
-                task.setPostfixBuild(extension.getPostfixBuild().get());
+                task.setPatch(extension.getPatch().get());
+                task.setReleaseType(extension.getReleaseType().get());
+                task.setBuild(extension.getBuild().get());
             });
             taskContainer.register(GET_MOD_VERSION_TASK, GetModVersionTask.class, task -> task.setGroup(VERSIONING_GROUP));
             taskContainer.register(SET_NIGHTLY_VERSION_TASK, SetNightlyVersionTask.class, task -> task.setGroup(VERSIONING_GROUP));

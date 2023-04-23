@@ -4,8 +4,7 @@ import org.gradle.api.provider.Property;
 
 public interface ResourcefulSettingsExt {
 
-    //Property<Boolean> getAutomaticVersioning();
-    Property<String> getPatchVersion();
-    Property<String> getVersionPostfix();
-    Property<String> getPostfixBuild();
+    Property<String> getPatch();
+    Property<String> getReleaseType();
+    Property<String> getBuild();
 }

@@ -63,7 +63,7 @@ public record ModVersion(int major, int minor, int patch, String postfix, int po
         int major = cur.get(1) - init.get(1) + 1;
         int minor = Objects.equals(cur.get(1), init.get(1)) ? cur.get(2) - init.get(2) : cur.get(2);
 
-        return ModVersion.of(major, minor, Integer.parseInt(patch), postfix, Integer.parseInt(postfixBuild));
+        return ModVersion.of(major, minor, Integer.parseInt(patch), getPostfix(postfix), Integer.parseInt(postfixBuild));
     }
 
     @NotNull
@@ -75,7 +75,12 @@ public record ModVersion(int major, int minor, int patch, String postfix, int po
         int postfixBuild = matcher.group(5) != null ? matcherGroupToInt(matcher, 5) : 0;
         int buildTime = matcher.group(6) != null ? matcherGroupToInt(matcher, 6) : 0;
 
-        return ModVersion.of(major, minor, patch, postfix, postfixBuild, buildTime);
+        return ModVersion.of(major, minor, patch, getPostfix(postfix), postfixBuild, buildTime);
+    }
+
+    @NotNull
+    private static String getPostfix(String postfix) {
+        return postfix.equals("release") ? "" : postfix;
     }
 
     private static int matcherGroupToInt(@NotNull Matcher matcher, int group) {

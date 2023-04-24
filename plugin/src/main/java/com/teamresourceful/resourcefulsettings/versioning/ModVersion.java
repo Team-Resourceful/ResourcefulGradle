@@ -10,7 +10,7 @@ import static com.teamresourceful.ResourcefulSettingsPlugin.LOGGER;
 
 public record ModVersion(int major, int minor, int patch, String releaseType, int build, long buildTime) {
 
-    private static final Pattern VERSION_PATTERN = Pattern.compile("^(\\d+)\\.(\\d+)\\.(\\d+)(?i:-(alpha|beta)(?:\\.(\\d+))?(?:\\+(\\d+))?)?$");
+    private static final Pattern VERSION_PATTERN = Pattern.compile("^(\\d+)\\.(\\d+)\\.(\\d+)(?i:-(alpha|beta|pre|rc)(?:\\.(\\d+))?(?:\\+(\\d+))?)?$");
     private static final String DEFAULT_VERSION = "0.0.0";
 
     public static ModVersion of(int major, int minor, int patch) {

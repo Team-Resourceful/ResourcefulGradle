@@ -9,7 +9,6 @@ import static com.teamresourceful.ResourcefulGradlePlugin.LOGGER;
 
 public abstract class PrintModVersionTask extends DefaultTask {
 
-    @Internal
     @TaskAction
     String printModVersion() {
         String currentVersion = ModVersion.fromVersionProps().toString();

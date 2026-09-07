@@ -21,7 +21,7 @@ import org.jetbrains.annotations.NotNull;
 public final class ResourcefulSettingsPlugin implements Plugin<Settings> {
 
     public static final Logger LOGGER = Logging.getLogger(ResourcefulSettingsPlugin.class);
-    public static final String GET_MOD_VERSION_TASK = "getModVersion";
+    public static final String GET_MOD_VERSION_TASK = "printModVersion";
     public static final String SET_NIGHTLY_VERSION_TASK = "setNightlyVersion";
     public static final String UPDATE_MOD_VERSION_TASK = "updateModVersion";
     public static final String VERSIONING_GROUP = "versioning";

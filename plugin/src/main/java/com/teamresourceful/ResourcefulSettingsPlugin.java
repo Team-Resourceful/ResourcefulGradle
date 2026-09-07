@@ -1,7 +1,7 @@
 package com.teamresourceful;
 
 import com.teamresourceful.resourcefulsettings.extensions.ResourcefulSettingsExt;
-import com.teamresourceful.resourcefulsettings.tasks.GetModVersionTask;
+import com.teamresourceful.resourcefulsettings.tasks.PrintModVersionTask;
 import com.teamresourceful.resourcefulsettings.tasks.SetNightlyVersionTask;
 import com.teamresourceful.resourcefulsettings.tasks.UpdateModVersionTask;
 import com.teamresourceful.resourcefulsettings.versioning.ModVersion;
@@ -49,7 +49,7 @@ public final class ResourcefulSettingsPlugin implements Plugin<Settings> {
                 task.setReleaseType(extension.getReleaseType().get());
                 task.setBuild(extension.getBuild().get());
             });
-            taskContainer.register(GET_MOD_VERSION_TASK, GetModVersionTask.class, task -> task.setGroup(VERSIONING_GROUP));
+            taskContainer.register(GET_MOD_VERSION_TASK, PrintModVersionTask.class, task -> task.setGroup(VERSIONING_GROUP));
             taskContainer.register(SET_NIGHTLY_VERSION_TASK, SetNightlyVersionTask.class, task -> task.setGroup(VERSIONING_GROUP));
         });
     }

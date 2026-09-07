@@ -7,11 +7,11 @@ import org.gradle.api.tasks.TaskAction;
 
 import static com.teamresourceful.ResourcefulGradlePlugin.LOGGER;
 
-public abstract class GetModVersionTask extends DefaultTask {
+public abstract class PrintModVersionTask extends DefaultTask {
 
     @Internal
     @TaskAction
-    String getModVersion() {
+    String printModVersion() {
         String currentVersion = ModVersion.fromVersionProps().toString();
         LOGGER.quiet("Current Mod Version is: {}", currentVersion);
         return currentVersion;

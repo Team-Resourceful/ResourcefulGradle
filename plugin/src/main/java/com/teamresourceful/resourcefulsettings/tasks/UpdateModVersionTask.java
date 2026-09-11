@@ -28,7 +28,7 @@ public abstract class UpdateModVersionTask extends DefaultTask {
     public abstract RegularFileProperty getOutputFile();
 
     @Option(option = "patch", description = "Patch version for the mod")
-    public void setPatch(String patch) {
+    public void patchOption(String patch) {
         getPatch().set(patch);
     }
 
@@ -36,12 +36,12 @@ public abstract class UpdateModVersionTask extends DefaultTask {
             option = "releaseType",
             description = "ReleaseType version for the mod (release/alpha/beta)"
     )
-    public void setReleaseType(String releaseType) {
+    public void releaseTypeOption(String releaseType) {
         getReleaseType().set(releaseType);
     }
 
     @Option(option = "build", description = "Version build for the mod")
-    public void setBuild(String build) {
+    public void buildOption(String build) {
         getBuild().set(build);
     }
 
@@ -55,7 +55,10 @@ public abstract class UpdateModVersionTask extends DefaultTask {
 
         ModVersion newVersion = ModVersion.inferredVersion();
 
-        VersionProperties.update("version", newVersion.toString());
+        VersionProperties.update(
+                "version",
+                newVersion.toString()
+        );
 
         VersionProperties.writeToFile(
                 getOutputFile().get().getAsFile().toPath()

@@ -16,34 +16,22 @@ import java.util.Map;
 public abstract class UpdateModVersionTask extends DefaultTask {
 
     @Input
+    @Option(option = "patch", description = "Patch version for the mod")
     public abstract Property<String> getPatch();
 
     @Input
-    public abstract Property<String> getReleaseType();
-
-    @Input
-    public abstract Property<String> getBuild();
-
-    @OutputFile
-    public abstract RegularFileProperty getOutputFile();
-
-    @Option(option = "patch", description = "Patch version for the mod")
-    public void patchOption(String patch) {
-        getPatch().set(patch);
-    }
-
     @Option(
             option = "releaseType",
             description = "ReleaseType version for the mod (release/alpha/beta)"
     )
-    public void releaseTypeOption(String releaseType) {
-        getReleaseType().set(releaseType);
-    }
+    public abstract Property<String> getReleaseType();
 
+    @Input
     @Option(option = "build", description = "Version build for the mod")
-    public void buildOption(String build) {
-        getBuild().set(build);
-    }
+    public abstract Property<String> getBuild();
+
+    @OutputFile
+    public abstract RegularFileProperty getOutputFile();
 
     @TaskAction
     public void updateVersion() {
@@ -55,10 +43,7 @@ public abstract class UpdateModVersionTask extends DefaultTask {
 
         ModVersion newVersion = ModVersion.inferredVersion();
 
-        VersionProperties.update(
-                "version",
-                newVersion.toString()
-        );
+        VersionProperties.update("version", newVersion.toString());
 
         VersionProperties.writeToFile(
                 getOutputFile().get().getAsFile().toPath()

@@ -31,6 +31,10 @@ public final class ResourcefulSettingsPlugin implements Plugin<Settings> {
 
         ResourcefulSettingsExt extension = settings.getExtensions().create("resourcefulSettings", ResourcefulSettingsExt.class);
 
+        extension.getPatch().convention("0");
+        extension.getReleaseType().convention("");
+        extension.getBuild().convention("0");
+
         VersionProperties.map(settings.getRootDir());
         if (!VersionProperties.isEmpty()) {
             ModVersion modVersion = ModVersion.fromVersionProps();
@@ -42,9 +46,9 @@ public final class ResourcefulSettingsPlugin implements Plugin<Settings> {
             TaskContainer taskContainer = project.getTasks();
             taskContainer.register(UPDATE_MOD_VERSION_TASK, UpdateModVersionTask.class, task -> {
                 task.setGroup(VERSIONING_GROUP);
-                task.getPatch().convention(extension.getPatch().get());
-                task.getReleaseType().convention(extension.getReleaseType().get());
-                task.getBuild().convention(extension.getBuild().get());
+                task.getPatch().convention(extension.getPatch());
+                task.getReleaseType().convention(extension.getReleaseType());
+                task.getBuild().convention(extension.getBuild());
                 task.getOutputFile().set(project.getRootProject().getLayout().getProjectDirectory().file("version.properties"));
             });
             taskContainer.register(GET_MOD_VERSION_TASK, PrintModVersionTask.class, task -> task.setGroup(VERSIONING_GROUP));

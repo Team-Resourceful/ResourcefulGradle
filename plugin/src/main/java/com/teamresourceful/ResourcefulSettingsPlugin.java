@@ -48,6 +48,7 @@ public final class ResourcefulSettingsPlugin implements Plugin<Settings> {
                 task.setPatch(extension.getPatch().get());
                 task.setReleaseType(extension.getReleaseType().get());
                 task.setBuild(extension.getBuild().get());
+                task.getOutputFile().set(project.getRootProject().getLayout().getProjectDirectory().file("version.properties"));
             });
             taskContainer.register(GET_MOD_VERSION_TASK, PrintModVersionTask.class, task -> task.setGroup(VERSIONING_GROUP));
             taskContainer.register(SET_NIGHTLY_VERSION_TASK, SetNightlyVersionTask.class, task -> task.setGroup(VERSIONING_GROUP));
